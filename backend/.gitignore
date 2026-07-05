@@ -1,0 +1,34 @@
+# Bundler
+/vendor/bundle
+
+# Logs
+/log/*
+!/log/.keep
+
+# Temp
+/tmp/*
+!/tmp/.keep
+
+# Storage
+/storage/*
+!/storage/.keep
+
+# PID
+/pids/*
+!/tmp/pids/.keep
+
+# SQLite
+*.sqlite3
+
+# Environment
+.env
+.env.*
+
+# VSCode
+.vscode/
+
+# JetBrains
+.idea/
+
+# macOS
+.DS_Store
