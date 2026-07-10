@@ -1,17 +1,15 @@
-const API_URL = "http://localhost:3000";
+import { request } from './baseApi';
 
 export async function getTasks() {
-    const response = await fetch(`${API_URL}/tasks`)
+    return request(`/tasks`)
+}
 
-    if (!response.ok) {
-        throw new Error("Не удалось получить список задач")
-    }
-
-    return await response.json()
+export async function getTask(id) {
+    return request(`/tasks/${id}`)
 }
 
 export async function createTask(title) {
-    const response = await fetch(`${API_URL}/tasks`, {
+    return request(`/tasks`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -23,10 +21,22 @@ export async function createTask(title) {
             }
         })
     })
+}
 
-    if (!response.ok) {
-        throw new Error("Не удалось создать задачу")
-    }
+export async function updateTask(id, data) {
+    return request(`/tasks/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            task: data
+        })
+    })
+}
 
-    return response.json()
+export async function deleteTask(id) {
+    return request(`/tasks/${id}`, {
+        method: "DELETE",
+    })
 }

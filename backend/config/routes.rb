@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   get "/about", to: "health#about"
 
   resources :tasks, only: [:index, :show, :create, :update, :destroy]
+  resources :categories, only: [:index, :create]
 end
