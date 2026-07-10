@@ -34,9 +34,12 @@ onMounted(loadData)
 </script>
 
 <template>
-  <h1>Ruby + Vue Task Manager</h1>
-  <CategoryForm @create-category="createCategoryHandler" />
-  <CategoriesList :categories />
-  <TaskForm @create-task="createTaskHandler" />
-  <TasksList :tasks />
+    <h1>Ruby + Vue Task Manager</h1>
+    <CategoryForm @create-category="createCategoryHandler" />
+    <CategoriesList :categories />
+    <TaskForm
+        :categories 
+        @create-task="createTaskHandler"
+    />
+    <TasksList :tasks :categories />
 </template>

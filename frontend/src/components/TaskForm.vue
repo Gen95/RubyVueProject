@@ -1,14 +1,17 @@
 <script setup>
-import { ref, onMounted } from "vue"
-import { createTask, getTasks } from "../api/tasks"
-import { createCategory, getCategories } from "../api/categories"
+import { defineProps, ref } from "vue"
+
+defineProps({
+    categories: Array,
+})
 
 const newTaskTitle = ref("");
+const newTaskCategory = ref(null);
 const emit = defineEmits(['create-task'])
 
 const createTaskHandler = async () => {
     if (!newTaskTitle?.value) return;
-    emit('create-task', newTaskTitle.value)
+    emit('create-task', { title: newTaskTitle.value, category_id: newTaskCategory.value })
     newTaskTitle.value = ""
 }
 </script>
@@ -18,5 +21,11 @@ const createTaskHandler = async () => {
         v-model="newTaskTitle"
         placeholder="Новая задача"
     />
+    <select v-model="newTaskCategory">
+        <option :value="null">Без категории</option>
+        <option v-for="category in categories" :value="category.id">
+            {{ category.name }}
+        </option>
+    </select>
     <button @click="createTaskHandler">Добавить</button>
 </template>

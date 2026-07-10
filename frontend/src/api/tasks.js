@@ -8,7 +8,7 @@ export async function getTask(id) {
     return request(`/tasks/${id}`)
 }
 
-export async function createTask(title) {
+export async function createTask({ title, category_id }) {
     return request(`/tasks`, {
         method: "POST",
         headers: {
@@ -17,6 +17,7 @@ export async function createTask(title) {
         body: JSON.stringify({
             task: {
                 title,
+                category_id,
                 completed: false
             }
         })
