@@ -1,7 +1,7 @@
 import { request } from './baseApi';
 
 export async function getCategories() {
-    return request(`categories`)
+    return request(`/categories`)
 }
 
 export async function createCategory(name) {
