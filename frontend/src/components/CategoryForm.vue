@@ -15,6 +15,7 @@ function createCategoryHandler() {
     <input
         v-model="newCategoryTitle"
         placeholder="Новая категория"
+        id="new-category"
     />
     <button @click="createCategoryHandler">Добавить</button>
 </template>

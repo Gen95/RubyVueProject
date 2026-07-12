@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from "vue"
+import { ref } from "vue"
 
 defineProps({
     categories: Array,
@@ -20,8 +20,12 @@ const createTaskHandler = async () => {
     <input
         v-model="newTaskTitle"
         placeholder="Новая задача"
+        id="new-task"
     />
-    <select v-model="newTaskCategory">
+    <select 
+        id="categories-list"
+        v-model="newTaskCategory"
+    >
         <option :value="null">Без категории</option>
         <option v-for="category in categories" :value="category.id">
             {{ category.name }}

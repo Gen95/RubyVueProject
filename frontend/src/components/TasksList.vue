@@ -1,21 +1,15 @@
 <script setup>
-import { defineProps } from "vue"
+import TaskListItem from "./TaskListItem.vue";
 
 const { tasks, categories } = defineProps({
   tasks: Array,
   categories: Array,
 })
 
-const getCategoryNameById = (id) => {
-  if (!id) return 'Без категории';
-  return categories.find(item => item.id === id).name
-}
 </script>
 
 <template>
-    <div v-for="task in tasks" :key="task.id">
-        {{ task.title }}: {{ task.completed ? 'Выполнено' : "В процессе" }} / {{ getCategoryNameById(task.category_id) }}
-    </div>
+  <TaskListItem  v-for="task in tasks" :task :categories />
 </template>
 
 <style scoped>
