@@ -3,7 +3,9 @@ import { inject } from "vue"
 import { deleteTask } from "../api/tasks";
 
 const props = defineProps({
-    isOpened: Boolean,
+    isOpened: {
+        type: Boolean,
+    }
 });
 
 const { loadTasks } = inject("tasksContext")
@@ -12,33 +14,36 @@ const { currentTask } = inject("modalContext")
 const emit = defineEmits(["update:isOpened"]);
 
 const handleClose = () => {
-    emit("update:modelValue", false)
+    emit("update:isOpened", false)
 }
 
 const handleDelete = async () => {
     await deleteTask(currentTask.value.id);
+    currentTask.value = null;
     await loadTasks();
     handleClose();
 }
 </script>
 
 <template>
-    <div class="modal-layout">
-        <div class="confirm-modal">
-            <h2>Удаление задачи</h2>
-            <p>Вы действительно хотите удалить задачу <strong><slot /></strong></p>
-            <div class="buttons-container">
-                <button
-                    class="button"
-                    @click="handleClose"
-                >Отмена</button>
-                <button
-                    class="button button_delete"
-                    @click="handleDelete"
-                >Удалить</button>
+    <Teleport to="body">
+        <div class="modal-layout">
+            <div class="confirm-modal">
+                <h2>Удаление задачи</h2>
+                <p>Вы действительно хотите удалить задачу <strong><slot /></strong></p>
+                <div class="buttons-container">
+                    <button
+                        class="button"
+                        @click="handleClose"
+                    >Отмена</button>
+                    <button
+                        class="button button_delete"
+                        @click="handleDelete"
+                    >Удалить</button>
+                </div>
             </div>
         </div>
-    </div>
+    </Teleport>
 </template>
 
 <style scoped>

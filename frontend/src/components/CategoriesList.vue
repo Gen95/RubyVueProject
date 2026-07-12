@@ -1,6 +1,9 @@
 <script setup>
 defineProps({
-    categories: Array,
+    categories: {
+        type: Array,
+        required: true
+    }
 })
 </script>
 

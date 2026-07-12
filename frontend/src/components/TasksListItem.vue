@@ -1,15 +1,16 @@
 <script setup>
-import { inject, ref } from "vue"
+import { computed, inject, ref } from "vue"
 import { updateTask } from "../api/tasks";
 
 const { task, categories } = defineProps({
     task: {
-        id: String,
-        title: String,
-        completed: Boolean,
-        category_id: Number,
+        type: String,
+        required: true,
     },
-    categories: Array,
+    categories: {
+        type: Array,
+        required: true,
+    }
 });
 
 const { loadTasks } = inject("tasksContext")
@@ -34,16 +35,17 @@ const handleSave = async () => {
 
 const changeCompleted = async (event) => {
     await updateTask(task.id, { completed: event.target.checked});
+    await loadTasks();
 }
 
 const handleDelete = async () => {
     openDeleteModal(task);
 }
 
-const getCategoryNameById = (id) => {
-  if (!id) return 'Без категории';
-  return categories?.find(item => item.id === id)?.name
-}
+const categoriesMap = computed(() => {
+  if (!task.category_id) return 'Без категории';
+  return categories?.find(item => item.id === task.category_id)?.name
+})
 </script>
 
 <template>
@@ -58,12 +60,12 @@ const getCategoryNameById = (id) => {
             :id="`task-${task.id}_title`"
             v-model="newTitle"
         />
-        <div class="list-item_category">{{ getCategoryNameById(task.category_id) }}</div>
+        <div class="list-item_category">{{ categoriesMap }}</div>
         <div>
             <input
                 type="checkbox"
                 id="completed"
-                v-model="task.completed"
+                :checked="task.completed"
                 @change="changeCompleted"
             />
             <label for="completed">{{ task.completed ? 'Выполнено' : "В процессе" }}</label>

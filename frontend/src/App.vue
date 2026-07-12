@@ -56,7 +56,7 @@ provide("modalContext", { openDeleteModal, currentTask })
     />
     <TasksList :tasks :categories />
     <div v-if="!tasks?.length">Создайте первую задачу</div>
-    <ConfirmModal v-if="isDeleteModalOpen" v-model="isDeleteModalOpen">
+    <ConfirmModal v-if="isDeleteModalOpen" v-model:is-opened="isDeleteModalOpen">
         {{ currentTask.title }}
     </ConfirmModal>
 </template>

@@ -1,17 +1,24 @@
 <script setup>
-import TaskListItem from "./TaskListItem.vue";
+import TaskListItem from "./TasksListItem.vue";
 
 const { tasks, categories } = defineProps({
-  tasks: Array,
-  categories: Array,
+  tasks: {
+    type: Array,
+    required: true,
+  },
+  categories: {
+    type: Array,
+    required: true,
+  }
 })
 
 </script>
 
 <template>
-  <TaskListItem  v-for="task in tasks" :task :categories />
+  <TaskListItem
+    v-for="task in tasks"
+    :key="task.id"
+    :task
+    :categories
+  />
 </template>
-
-<style scoped>
-
-</style>

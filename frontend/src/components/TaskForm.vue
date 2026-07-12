@@ -2,7 +2,10 @@
 import { ref } from "vue"
 
 defineProps({
-    categories: Array,
+    categories: {
+        type: Array,
+        required: true
+    }
 })
 
 const newTaskTitle = ref("");
